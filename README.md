@@ -96,7 +96,7 @@ response:
 Добавляем зависимость Maven в pom.xml проекта
 ```xml
 <dependency>
-    <groupId>com.gitlab.mobrubov</groupId>
+    <groupId>com.github.m-obrubov</groupId>
     <artifactId>spring-boot-starter-user-management</artifactId>
     <version>1.0.0</version>
 </dependency>
