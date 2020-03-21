@@ -1,10 +1,10 @@
-package com.github.mobrubov.springbootstarterusermanagement;
+package com.github.mobrubov.usermanagement;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.TestInstance;
 
-@SpringBootTest
-class SpringBootStarterUserManagementApplicationTests {
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

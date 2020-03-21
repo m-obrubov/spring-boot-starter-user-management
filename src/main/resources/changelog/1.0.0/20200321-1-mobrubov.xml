@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20200321-1-mobrubov-create-user-table" author="mobrubov">
+        <createTable tableName="user">
+            <column name="guid" type="UUID">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="login" type="varchar(256)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="password" type="varchar(60)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="first_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="nick_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="varchar(512)"/>
+
+            <column name="role" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="create_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_update_date" type="datetime"/>
+
+            <column name="last_updated_by" type="varchar(256)"/>
+
+            <column name="last_login_date" type="datetime"/>
+
+            <column name="last_login_date" type="integer"/>
+
+            <column name="locked" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="temporal" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="user"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
