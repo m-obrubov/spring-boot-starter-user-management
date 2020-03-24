@@ -1,30 +1,30 @@
 package com.github.mobrubov.usermanagement.logic.manager.impl;
 
-import com.github.mobrubov.usermanagement.logic.manager.UserManager;
-import com.github.mobrubov.usermanagement.rest.ro.UserRo;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import com.github.mobrubov.usermanagement.logic.entity.User;
+import com.github.mobrubov.usermanagement.logic.manager.UserManager;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserManagerImpl implements UserManager {
     @Override
-    public UserRo create(UserRo user) {
+    public User create(User user) {
         return null;
     }
 
     @Override
-    public List<UserRo> getAll() {
+    public List<User> getAll() {
         return null;
     }
 
     @Override
-    public UserRo getOne(String guid) {
+    public User getOne(String guid) {
         return null;
     }
 
     @Override
-    public void update(String guid, UserRo user) {
+    public void update(String guid, User user) {
 
     }
 

@@ -6,5 +6,6 @@
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include file="changelog/1.0.0/20200321-1-mobrubov.xml"/>
+    <include file="changelog/1.0.0/20200324-1-mobrubov.xml"/>
 
 </databaseChangeLog>

@@ -1,32 +1,30 @@
 package com.github.mobrubov.usermanagement.logic.entity;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.id.IdentifierGenerator;
-import org.hibernate.id.UUIDGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Data
 @Table(name = "\"user\"")
 @Entity
 public class User {
     @Id
-    @GeneratedValue(generator = IdentifierGenerator.GENERATOR_NAME)
+    @GeneratedValue(generator = "UUID")
     @GenericGenerator(
-            name = IdentifierGenerator.GENERATOR_NAME,
-            strategy = UUIDGenerator.UUID_GEN_STRATEGY
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "guid", nullable = false, unique = true, updatable = false)
     private UUID guid;
@@ -97,4 +95,7 @@ public class User {
 
     @Column(name = "temporal", nullable = false)
     private Boolean temporal;
+
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted;
 }

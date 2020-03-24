@@ -51,13 +51,17 @@
 
             <column name="last_login_date" type="datetime"/>
 
-            <column name="last_login_date" type="integer"/>
+            <column name="login_count" type="integer"/>
 
             <column name="locked" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
 
             <column name="temporal" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="deleted" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
         </createTable>

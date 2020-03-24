@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20200324-1-mobrubov-create-user_audit_history-table" author="mobrubov">
+        <createTable tableName="user_audit_history">
+            <column name="guid" type="UUID">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="target_user_guid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="author_user_guid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="date_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="operation" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="details" type="varchar(1024)"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_audit_history"
+                                 baseColumnNames="target_user_guid"
+                                 constraintName="user_audit_history_target_user_guid_fk"
+                                 referencedTableName="user"
+                                 referencedColumnNames="guid"/>
+
+        <addForeignKeyConstraint baseTableName="user_audit_history"
+                                 baseColumnNames="author_user_guid"
+                                 constraintName="user_audit_history_author_user_guid_fk"
+                                 referencedTableName="user"
+                                 referencedColumnNames="guid"/>
+
+        <rollback>
+            <dropTable tableName="user_audit_history"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

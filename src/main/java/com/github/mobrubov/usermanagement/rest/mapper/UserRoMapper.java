@@ -1,18 +1,17 @@
 package com.github.mobrubov.usermanagement.rest.mapper;
 
+import java.util.List;
+import java.util.UUID;
+
 import com.github.mobrubov.usermanagement.logic.entity.User;
 import com.github.mobrubov.usermanagement.rest.ro.UserRo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-import java.util.UUID;
-
 @Mapper(componentModel = "spring")
 public interface UserRoMapper {
     UserRo map(User user);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "guid", ignore = true)
     User map(UserRo userRo);
 
