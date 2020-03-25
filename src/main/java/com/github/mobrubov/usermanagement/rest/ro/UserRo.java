@@ -1,11 +1,11 @@
 package com.github.mobrubov.usermanagement.rest.ro;
 
-import com.github.mobrubov.usermanagement.rest.Constraint;
-import lombok.Data;
-
+import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+
+import com.github.mobrubov.usermanagement.rest.Constraint;
+import lombok.Data;
 
 @Data
 public class UserRo {
@@ -14,7 +14,8 @@ public class UserRo {
     private String firstName;
     @NotBlank(groups = Constraint.Create.class)
     private String lastName;
-    private String patronymic;
+    @NotBlank(groups = Constraint.Create.class)
+    private String login;
     @NotNull(groups = Constraint.Create.class)
     private LocalDate birthDate;
 }
