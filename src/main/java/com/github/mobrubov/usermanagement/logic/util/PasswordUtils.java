@@ -23,40 +23,46 @@ public class PasswordUtils {
     };
     private static final int ALLOWED_CHARACTERS_LENGTH = 26;
 
-    private final UserManagementProperties properties;
-    private final Random pwdLengthRandom;
-    private final Random strengthRandom;
-    private final Random charactersLengthRandom;
+    private final Integer pwdLength;
+    private final PasswordStrength pwdStrength;
+    private final Random random = new Random();
 
     public PasswordUtils(UserManagementProperties properties) {
-        this.properties = properties;
         if(nonNull(properties.getPassword()) && nonNull(properties.getPassword().getLength())) {
-            this.pwdLengthRandom = new Random(properties.getPassword().getLength());
+            this.pwdLength = properties.getPassword().getLength();
         } else {
-            this.pwdLengthRandom = new Random(DEFAULT_PASSWORD_LENGTH);
+            this.pwdLength = DEFAULT_PASSWORD_LENGTH;
         }
         if(nonNull(properties.getPassword()) && nonNull(properties.getPassword().getStrength())) {
-            this.strengthRandom = new Random(properties.getPassword().getStrength().ordinal());
+            this.pwdStrength = properties.getPassword().getStrength();
         } else {
-            this.strengthRandom = new Random(DEFAULT_PASSWORD_STRENGTH.ordinal());
+            this.pwdStrength = DEFAULT_PASSWORD_STRENGTH;
         }
-        this.charactersLengthRandom = new Random(ALLOWED_CHARACTERS_LENGTH);
     }
 
     public String generatePassword() {
-        Integer pwdLength = properties.getPassword().getLength();
-        StringBuilder pwd = new StringBuilder(pwdLength);
-        for(int i = 0; i < pwdLength; i++) {
-            // TODO generation
-            pwd.append(ALLOWED_CHARACTERS[pwdLengthRandom.nextInt()]);
+        StringBuilder pwd = new StringBuilder(this.pwdLength);
+        for(int i = 0; i < this.pwdLength; i++) {
+            pwd.append(ALLOWED_CHARACTERS[random.nextInt(pwdStrength.ordinal())]
+                .charAt(random.nextInt(ALLOWED_CHARACTERS_LENGTH)));
         }
         return pwd.toString();
     }
 
     public enum PasswordStrength {
-        LOWER_CASE,
-        UPPER_CASE,
-        DIGITS,
-        SPECIAL
+        LOWER_CASE(1),
+        UPPER_CASE(2),
+        DIGITS(3),
+        SPECIAL(4);
+
+        private final int level;
+
+        PasswordStrength(int level) {
+            this.level = level;
+        }
+
+        public int getLevel() {
+            return level;
+        }
     }
 }

@@ -22,3 +22,9 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/changelog/db.changelog.xml
+
+management:
+  user:
+    password:
+      length: 10
+      strength: SPECIAL

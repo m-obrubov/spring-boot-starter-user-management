@@ -17,8 +17,10 @@ public class UserServiceImpl implements UserService {
     private final UserManager userManager;
     private final UserRoMapper userRoMapper;
 
+    @Transactional
     public UserRo create(UserRo user) {
         // TODO check for existing with same login
+        // TODO validate role
         User userToCreate = userRoMapper.map(user);
         User createdUser = userManager.create(userToCreate);
         return userRoMapper.map(createdUser);
