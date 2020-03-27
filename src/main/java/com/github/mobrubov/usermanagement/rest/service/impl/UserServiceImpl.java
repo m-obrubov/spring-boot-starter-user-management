@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private final UserManager userManager;
     private final UserRoMapper userRoMapper;
 
-    @Transactional
+    @Override
     public UserRo create(UserRo user) {
         // TODO check for existing with same login
         // TODO validate role
@@ -26,22 +26,26 @@ public class UserServiceImpl implements UserService {
         return userRoMapper.map(createdUser);
     }
 
+    @Override
     @Transactional
     public List<UserRo> getAll() {
         return userRoMapper.map(userManager.getAll());
     }
 
+    @Override
     @Transactional
     public UserRo getOne(String guid) {
         return userRoMapper.map(userManager.getOne(guid));
     }
 
+    @Override
     @Transactional
     public void update(String guid, UserRo user) {
         User userToUpdate = userRoMapper.map(user);
         userManager.update(guid, userToUpdate);
     }
 
+    @Override
     @Transactional
     public void delete(String guid) {
         userManager.delete(guid);

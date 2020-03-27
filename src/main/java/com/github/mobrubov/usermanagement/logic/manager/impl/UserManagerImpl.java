@@ -30,10 +30,14 @@ public class UserManagerImpl implements UserManager {
             .orElseThrow(() -> new UserManagementException(ErrorCode.INCORRECT_CURRENT_USER));
 
         user.setGuid(UUID.randomUUID());
+        String originalPassword;
         if(Strings.isBlank(user.getPassword())) {
-            user.setPassword(passwordUtils.generatePassword());
+            originalPassword = passwordUtils.generatePassword();
             user.setTemporal(Boolean.TRUE);
+        } else {
+            originalPassword = user.getPassword();
         }
+        user.setPassword(passwordUtils.encodePassword(originalPassword));
         if(Strings.isBlank(user.getNickName())) {
             user.setNickName(user.getLogin());
         }
@@ -44,6 +48,8 @@ public class UserManagerImpl implements UserManager {
         createHistoryItem.setTarget(savedUser);
         createHistoryItem.setOperation(AuditOperation.CREATED);
         userAuditHistoryRepository.save(createHistoryItem);
+
+        savedUser.setPassword(originalPassword);
         return savedUser;
     }
 
