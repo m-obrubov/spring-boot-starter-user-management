@@ -1,0 +1,235 @@
+swagger: '2.0'
+info:
+  title: 'User Management API'
+  version: 1.0.0
+  contact:
+    name: 'Maxim Obrubov'
+    email: obrubov.max@mail.ru
+    url: 'https://github.com/m-obrubov'
+  license:
+    name: 'Apache License 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: UserController
+paths:
+  /user:
+    post:
+      operationId: createUser
+      tags:
+        - UserController
+      parameters:
+        - name: userRo
+          in: body
+          required: true
+          schema:
+            type: object
+            title: CreateRequest
+            required:
+              - login
+              - password
+              - role
+            properties:
+              login:
+                type: string
+              password:
+                type: string
+                format: password
+              nickName:
+                type: string
+              email:
+                type: string
+                format: email
+              role:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            required:
+              - guid
+              - nickName
+            properties:
+              guid:
+                type: string
+                format: uuid
+              nickName:
+                type: string
+              password:
+                type: string
+                format: password
+              temporal:
+                type: boolean
+        400:
+          $ref: '#/responses/BadRequest'
+        500:
+          $ref: '#/responses/InternalServerError'
+    get:
+      operationId: getAllUsers
+      tags:
+        - UserController
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FullUserResponse'
+        500:
+          $ref: '#/responses/InternalServerError'
+  /user/{guid}:
+    get:
+      operationId: getOneByGuid
+      tags:
+        - UserController
+      parameters:
+        - name: guid
+          type: string
+          format: uuid
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/FullUserResponse'
+        400:
+          $ref: '#/responses/BadRequest'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    patch:
+      operationId: updateByGuid
+      tags:
+        - UserController
+      parameters:
+        - name: guid
+          type: string
+          format: uuid
+          in: path
+          required: true
+        - name: userRo
+          in: body
+          required: true
+          schema:
+            properties:
+              password:
+                type: string
+                format: password
+              nickName:
+                type: string
+              email:
+                type: string
+                format: email
+              role:
+                type: string
+              locked:
+                type: boolean
+      responses:
+        200:
+          description: OK
+        400:
+          $ref: '#/responses/BadRequest'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      operationId: deleteByGuid
+      tags:
+        - UserController
+      parameters:
+        - name: guid
+          type: string
+          format: uuid
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          $ref: '#/responses/BadRequest'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+definitions:
+  FullUserResponse:
+    type: object
+    required:
+      - guid
+      - login
+      - role
+      - createDate
+      - loginFailCount
+      - locked
+      - temporal
+      - deleted
+    properties:
+      guid:
+        type: string
+        format: uuid
+      login:
+        type: string
+      nickName:
+        type: string
+      email:
+        type: string
+        format: email
+      role:
+        type: string
+      createDate:
+        type: string
+        format: date-time
+      createBy:
+        type: string
+        format: date-time
+      lastUpdateDate:
+        type: string
+        format: date-time
+      lastUpdateBy:
+        type: string
+        format: date-time
+      lastLoginDate:
+        type: string
+        format: date-time
+      loginFailCount:
+        type: integer
+      locked:
+        type: boolean
+      temporal:
+        type: boolean
+      deleted:
+        type: boolean
+  ErrorRo:
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        type: string
+        enum:
+          - UNKNOWN
+          - BAD_REQUEST
+          - NOT_FOUND
+      message:
+        type: string
+responses:
+  BadRequest:
+    description: Bad Request. code = BAD_REQUEST
+    schema:
+      $ref: '#/definitions/ErrorRo'
+  NotFound:
+    description: Not Found. code = NOT_FOUND
+    schema:
+      $ref: '#/definitions/ErrorRo'
+  InternalServerError:
+    description: Internal Server Error. code = UNKNOWN
+    schema:
+      $ref: '#/definitions/ErrorRo'

@@ -67,7 +67,7 @@ public class UserRo {
     private LocalDateTime lastLoginDate;
 
     // full get
-    private Integer loginCount;
+    private Integer loginFailCount;
 
     // full get
     private Boolean temporal;

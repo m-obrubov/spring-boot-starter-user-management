@@ -43,7 +43,7 @@
 
             <column name="last_login_date" type="datetime"/>
 
-            <column name="login_count" type="integer"/>
+            <column name="login_fail_count" type="integer" defaultValue="0"/>
 
             <column name="locked" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>

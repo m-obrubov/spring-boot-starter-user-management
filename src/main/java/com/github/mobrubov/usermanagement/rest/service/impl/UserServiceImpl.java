@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserRo> getAll() {
         // TODO map short for non admins
-        return userRoMapper.map(userManager.getAll());
+        return userRoMapper.mapFull(userManager.getAll());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         // TODO map short for non admins
         UUID realGuid = parseGuid(guid);
         validateExistence(realGuid);
-        return userRoMapper.map(userManager.getOne(realGuid));
+        return userRoMapper.mapFull(userManager.getOne(realGuid));
     }
 
     @Override

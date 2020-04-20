@@ -75,7 +75,7 @@ public class User {
     @Min(0)
     @Max(Integer.MAX_VALUE)
     @Column(name = "login_count")
-    private Integer loginCount;
+    private Integer loginFailCount = 0;
 
     @Column(name = "locked", nullable = false)
     private Boolean locked;
