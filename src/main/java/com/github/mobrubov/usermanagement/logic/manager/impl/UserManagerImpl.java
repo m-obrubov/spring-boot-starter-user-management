@@ -1,15 +1,20 @@
 package com.github.mobrubov.usermanagement.logic.manager.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
+import com.github.mobrubov.usermanagement.common.exception.ErrorCode;
+import com.github.mobrubov.usermanagement.common.exception.UserManagementException;
 import com.github.mobrubov.usermanagement.logic.entity.User;
 import com.github.mobrubov.usermanagement.logic.manager.UserManager;
 import com.github.mobrubov.usermanagement.logic.repository.UserRepository;
 import com.github.mobrubov.usermanagement.logic.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 @RequiredArgsConstructor
 @Service
@@ -20,17 +25,16 @@ public class UserManagerImpl implements UserManager {
     @Override
     public User create(User user) {
         user.setGuid(UUID.randomUUID());
-        boolean hasNoPassword = false;
+        boolean hasNoPassword = isBlank(user.getPassword());
         String originalPassword;
-        if(Strings.isBlank(user.getPassword())) {
-            hasNoPassword = true;
+        if(hasNoPassword) {
             originalPassword = passwordUtils.generatePassword();
             user.setTemporal(Boolean.TRUE);
         } else {
             originalPassword = user.getPassword();
         }
         user.setPassword(passwordUtils.encodePassword(originalPassword));
-        if(Strings.isBlank(user.getNickName())) {
+        if(isBlank(user.getNickName())) {
             user.setNickName(user.getLogin());
         }
         User savedUser = userRepository.save(user);
@@ -42,21 +46,50 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public List<User> getAll() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
-    public User getOne(String guid) {
-        return null;
+    public User getOne(UUID guid) {
+        return userRepository.findById(guid)
+            .orElseThrow(() -> new UserManagementException("No such user", ErrorCode.NOT_FOUND));
     }
 
     @Override
-    public void update(String guid, User user) {
-
+    public void update(UUID guid, User user) {
+        User oldUser = getOne(guid);
+        if(isNotBlank(user.getPassword())) {
+            oldUser.setPassword(passwordUtils.encodePassword(user.getPassword()));
+        }
+        if(isNotBlank(user.getNickName())) {
+            oldUser.setNickName(user.getNickName());
+        }
+        if(isNotBlank(user.getEmail())) {
+            oldUser.setEmail(user.getEmail());
+        }
+        if(isNotBlank(user.getRole())) {
+            oldUser.setRole(user.getRole());
+        }
+        if(Objects.nonNull(user.getLocked())) {
+            oldUser.setLocked(user.getLocked());
+        }
+        userRepository.save(oldUser);
     }
 
     @Override
-    public void delete(String guid) {
+    public void delete(UUID guid) {
+        User userToDelete = getOne(guid);
+        userToDelete.setDeleted(Boolean.TRUE);
+        userRepository.save(userToDelete);
+    }
 
+    @Override
+    public boolean exists(String login) {
+        return userRepository.existsByLogin(login);
+    }
+
+    @Override
+    public boolean exists(UUID guid) {
+        return userRepository.existsById(guid);
     }
 }

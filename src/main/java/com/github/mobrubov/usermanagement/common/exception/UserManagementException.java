@@ -8,22 +8,22 @@ public class UserManagementException extends RuntimeException {
     private final ErrorCode errorCode;
 
     public UserManagementException() {
-        this.errorCode = ErrorCode.DEFAULT;
+        this.errorCode = ErrorCode.UNKNOWN;
     }
 
     public UserManagementException(String message) {
         super(message);
-        this.errorCode = ErrorCode.DEFAULT;
+        this.errorCode = ErrorCode.UNKNOWN;
     }
 
     public UserManagementException(String message, Throwable cause) {
         super(message, cause);
-        this.errorCode = ErrorCode.DEFAULT;
+        this.errorCode = ErrorCode.UNKNOWN;
     }
 
     public UserManagementException(Throwable cause) {
         super(cause);
-        this.errorCode = ErrorCode.DEFAULT;
+        this.errorCode = ErrorCode.UNKNOWN;
     }
 
     public UserManagementException(
@@ -33,7 +33,7 @@ public class UserManagementException extends RuntimeException {
         boolean writableStackTrace
     ) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.errorCode = ErrorCode.DEFAULT;
+        this.errorCode = ErrorCode.UNKNOWN;
     }
 
     public UserManagementException(ErrorCode errorCode) {

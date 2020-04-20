@@ -1,13 +1,17 @@
 package com.github.mobrubov.usermanagement.logic.manager;
 
-import com.github.mobrubov.usermanagement.logic.entity.User;
-
 import java.util.List;
+import java.util.UUID;
+
+import com.github.mobrubov.usermanagement.logic.entity.User;
 
 public interface UserManager {
     User create(User user);
     List<User> getAll();
-    User getOne(String guid);
-    void update(String guid, User user);
-    void delete(String guid);
+    User getOne(UUID guid);
+    void update(UUID guid, User user);
+    void delete(UUID guid);
+
+    boolean exists(String login);
+    boolean exists(UUID guid);
 }

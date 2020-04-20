@@ -20,8 +20,7 @@ spring:
     hibernate:
       ddl-auto: validate
   liquibase:
-    enabled: true
-    change-log: classpath:/changelog/db.changelog.xml
+    enabled: false
 
 management:
   user:

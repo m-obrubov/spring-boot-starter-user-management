@@ -37,19 +37,8 @@ public class User {
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
-    @NotNull
     @Length(max = 256)
-    @Column(name = "first_name", nullable = false, length = 256)
-    private String firstName;
-
-    @NotNull
-    @Length(max = 256)
-    @Column(name = "last_name", nullable = false, length = 256)
-    private String lastName;
-
-    @NotNull
-    @Length(max = 256)
-    @Column(name = "nick_name", nullable = false, length = 256)
+    @Column(name = "nick_name", unique = true, length = 256)
     private String nickName;
 
     @Email
