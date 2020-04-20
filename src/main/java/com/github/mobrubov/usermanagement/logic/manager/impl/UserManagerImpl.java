@@ -92,4 +92,9 @@ public class UserManagerImpl implements UserManager {
     public boolean exists(UUID guid) {
         return userRepository.existsById(guid);
     }
+
+    @Override
+    public String getCurrentUserName() {
+        return "unknown";
+    }
 }

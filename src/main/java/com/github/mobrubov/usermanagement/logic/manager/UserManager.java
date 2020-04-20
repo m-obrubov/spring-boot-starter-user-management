@@ -14,4 +14,6 @@ public interface UserManager {
 
     boolean exists(String login);
     boolean exists(UUID guid);
+
+    String getCurrentUserName();
 }

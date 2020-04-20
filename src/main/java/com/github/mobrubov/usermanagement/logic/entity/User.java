@@ -2,10 +2,7 @@ package com.github.mobrubov.usermanagement.logic.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,10 +14,12 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @Table(name = "\"user\"")
 @Entity
+@EntityListeners({AuditingEntityListener.class})
 public class User {
     @Id
     @NotNull
@@ -33,8 +32,8 @@ public class User {
     private String login;
 
     @NotNull
-    @Length(max = 60)
-    @Column(name = "password", nullable = false, length = 60)
+    @Length(max = 161)
+    @Column(name = "password", nullable = false, length = 161)
     private String password;
 
     @Length(max = 256)
@@ -78,11 +77,11 @@ public class User {
     private Integer loginFailCount = 0;
 
     @Column(name = "locked", nullable = false)
-    private Boolean locked;
+    private Boolean locked = Boolean.FALSE;
 
     @Column(name = "temporal", nullable = false)
-    private Boolean temporal;
+    private Boolean temporal = Boolean.FALSE;
 
     @Column(name = "deleted", nullable = false)
-    private Boolean deleted;
+    private Boolean deleted = Boolean.FALSE;
 }
