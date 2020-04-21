@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.m-obrubov</groupId>
 	<artifactId>spring-boot-starter-user-management</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>spring-boot-starter-user-management</name>
 
 	<properties>

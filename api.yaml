@@ -63,7 +63,7 @@ paths:
               password:
                 type: string
                 format: password
-              temporal:
+              temporalPassword:
                 type: boolean
         400:
           $ref: '#/responses/BadRequest'
@@ -169,7 +169,7 @@ definitions:
       - createDate
       - loginFailCount
       - locked
-      - temporal
+      - temporalPassword
       - deleted
     properties:
       guid:
@@ -203,7 +203,7 @@ definitions:
         type: integer
       locked:
         type: boolean
-      temporal:
+      temporalPassword:
         type: boolean
       deleted:
         type: boolean

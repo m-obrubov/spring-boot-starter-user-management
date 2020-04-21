@@ -70,7 +70,7 @@ public class UserRo {
     private Integer loginFailCount;
 
     // full get
-    private Boolean temporal;
+    private Boolean temporalPassword;
 
     // full get
     private Boolean deleted;

@@ -83,7 +83,7 @@ public class User {
 
     @NotNull
     @Column(name = "temporal", nullable = false)
-    private Boolean temporal = Boolean.FALSE;
+    private Boolean temporalPassword = Boolean.FALSE;
 
     @NotNull
     @Column(name = "deleted", nullable = false)
