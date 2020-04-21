@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
             throw new UserManagementException("Incorrect role", ErrorCode.BAD_REQUEST);
         }
         UserRo createdUser = userRoMapper.mapCreated(userManager.create(userRoMapper.mapCreate(user)));
-        if(BooleanUtils.isFalse(createdUser.getTemporal())) {
-            createdUser.setTemporal(null);
+        if(BooleanUtils.isFalse(createdUser.getTemporalPassword())) {
+            createdUser.setTemporalPassword(null);
             createdUser.setPassword(null);
         }
         return createdUser;

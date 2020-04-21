@@ -29,7 +29,7 @@ public class UserManagerImpl implements UserManager {
         String originalPassword;
         if(hasNoPassword) {
             originalPassword = passwordUtils.generatePassword();
-            user.setTemporal(Boolean.TRUE);
+            user.setTemporalPassword(Boolean.TRUE);
         } else {
             originalPassword = user.getPassword();
         }

@@ -38,7 +38,7 @@ public interface UserRoMapper {
     @Mapping(target = "lastUpdatedBy", ignore = true)
     @Mapping(target = "lastLoginDate", ignore = true)
     @Mapping(target = "loginFailCount", ignore = true)
-    @Mapping(target = "temporal", ignore = true)
+    @Mapping(target = "temporalPassword", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     UserRo map(User user);
 
@@ -60,7 +60,7 @@ public interface UserRoMapper {
     @Mapping(target = "lastUpdatedBy", ignore = true)
     @Mapping(target = "lastLoginDate", ignore = true)
     @Mapping(target = "loginFailCount", ignore = true)
-    @Mapping(target = "temporal", ignore = true)
+    @Mapping(target = "temporalPassword", ignore = true)
     @Mapping(target = "locked", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     User mapCreate(UserRo userRo);
@@ -87,7 +87,7 @@ public interface UserRoMapper {
     @Mapping(target = "lastUpdatedBy", ignore = true)
     @Mapping(target = "lastLoginDate", ignore = true)
     @Mapping(target = "loginFailCount", ignore = true)
-    @Mapping(target = "temporal", ignore = true)
+    @Mapping(target = "temporalPassword", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     User mapUpdate(UserRo userRo);
 
