@@ -11,7 +11,7 @@ import javax.crypto.spec.PBEKeySpec;
 import com.github.mobrubov.usermanagement.common.exception.UserManagementProperties;
 import org.springframework.stereotype.Component;
 
-import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
 
 /**
  * @author Максим
@@ -37,16 +37,14 @@ public class PasswordUtils {
     private final Random random = new Random();
 
     public PasswordUtils(UserManagementProperties properties) {
-        if(nonNull(properties.getPassword()) && nonNull(properties.getPassword().getLength())) {
-            this.pwdLength = properties.getPassword().getLength();
-        } else {
-            this.pwdLength = DEFAULT_PASSWORD_LENGTH;
+        if(isNull(properties.getPassword()) || isNull(properties.getPassword().getLength())) {
+            throw new IllegalArgumentException("Password length is not set. Set property management.user.password.length");
         }
-        if(nonNull(properties.getPassword()) && nonNull(properties.getPassword().getStrength())) {
-            this.pwdStrength = properties.getPassword().getStrength();
-        } else {
-            this.pwdStrength = DEFAULT_PASSWORD_STRENGTH;
+        if(isNull(properties.getPassword().getStrength())) {
+            throw new IllegalArgumentException("Password strength is not set. Set property management.user.password.strength");
         }
+        this.pwdLength = properties.getPassword().getLength();
+        this.pwdStrength = properties.getPassword().getStrength();
     }
 
     public String generatePassword() {

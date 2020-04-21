@@ -1,0 +1,9 @@
+management:
+  user:
+    password:
+      length: 10
+      strength: SPECIAL
+    roles:
+      - name: ADMIN
+        isAdmin: true
+      - name: USER
