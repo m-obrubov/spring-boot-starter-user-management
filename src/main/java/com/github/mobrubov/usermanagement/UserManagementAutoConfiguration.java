@@ -13,14 +13,18 @@ import com.github.mobrubov.usermanagement.logic.manager.UserManager;
 import com.github.mobrubov.usermanagement.logic.util.PasswordUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaAuditing
 @Configuration
+@EntityScan(basePackageClasses = UserManagementAutoConfiguration.class)
+@EnableJpaRepositories(basePackageClasses = UserManagementAutoConfiguration.class)
 @ComponentScan(basePackageClasses = UserManagementAutoConfiguration.class)
 public class UserManagementAutoConfiguration {
     @Bean
@@ -42,8 +46,7 @@ public class UserManagementAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "management.user", matchIfMissing = true)
-    @ConditionalOnMissingBean
+    @ConditionalOnProperty(value = "management.user", matchIfMissing = true)
     public UserManagementProperties properties() {
         UserManagementProperties properties = new UserManagementProperties();
         properties.setPassword(new UserManagementProperties.Password());

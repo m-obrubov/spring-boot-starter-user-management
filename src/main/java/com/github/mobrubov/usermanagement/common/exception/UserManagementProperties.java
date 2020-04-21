@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.mobrubov.usermanagement.logic.util.PasswordUtils;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
+@ConditionalOnMissingBean(UserManagementProperties.class)
 @ConfigurationProperties(prefix = "management.user")
 public class UserManagementProperties {
     private Password password;
