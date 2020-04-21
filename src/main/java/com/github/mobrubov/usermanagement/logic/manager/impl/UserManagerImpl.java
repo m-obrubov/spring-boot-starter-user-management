@@ -58,6 +58,8 @@ public class UserManagerImpl implements UserManager {
     @Override
     public void update(UUID guid, User user) {
         User oldUser = getOne(guid);
+//       TODO check deleted only for plain users
+//        if(oldUser.getDeleted()) { }
         if(isNotBlank(user.getPassword())) {
             oldUser.setPassword(passwordUtils.encodePassword(user.getPassword()));
         }

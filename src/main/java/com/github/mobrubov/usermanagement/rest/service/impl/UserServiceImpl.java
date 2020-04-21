@@ -1,6 +1,7 @@
 package com.github.mobrubov.usermanagement.rest.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import javax.transaction.Transactional;
 
@@ -58,7 +59,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(String guid, UserRo user) {
-        if(properties.getRoles().stream().noneMatch(role -> StringUtils.equals(role.getName(), user.getRole()))) {
+        if(
+            Objects.nonNull(user.getRole())
+                && properties.getRoles().stream().noneMatch(role -> StringUtils.equals(role.getName(), user.getRole()))
+        ) {
             throw new UserManagementException("Invalid role", ErrorCode.BAD_REQUEST);
         }
         UUID realGuid = parseGuid(guid);
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateExistence(UUID uuid) {
-        if(userManager.exists(uuid)) {
+        if(!userManager.exists(uuid)) {
             throw new UserManagementException("User not found with such guid", ErrorCode.NOT_FOUND);
         }
     }

@@ -71,17 +71,21 @@ public class User {
     @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;
 
+    @NotNull
     @Min(0)
     @Max(Integer.MAX_VALUE)
     @Column(name = "login_count")
     private Integer loginFailCount = 0;
 
+    @NotNull
     @Column(name = "locked", nullable = false)
     private Boolean locked = Boolean.FALSE;
 
+    @NotNull
     @Column(name = "temporal", nullable = false)
     private Boolean temporal = Boolean.FALSE;
 
+    @NotNull
     @Column(name = "deleted", nullable = false)
     private Boolean deleted = Boolean.FALSE;
 }
