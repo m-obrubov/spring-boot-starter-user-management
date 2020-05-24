@@ -28,6 +28,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackageClasses = UserManagementAutoConfiguration.class)
 public class UserManagementAutoConfiguration {
     @Bean
+    @ConditionalOnMissingBean
     public AuditorAware<String> auditorProvider(UserManager userManager) {
         return () -> Optional.of(userManager.getCurrentUserName());
     }

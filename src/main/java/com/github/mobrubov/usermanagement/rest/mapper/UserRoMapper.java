@@ -65,20 +65,6 @@ public interface UserRoMapper {
     @Mapping(target = "deleted", ignore = true)
     User mapCreate(UserRo userRo);
 
-    @Mapping(target = "login", ignore = true)
-    @Mapping(target = "nickName", source = "user")
-    @Mapping(target = "email", ignore = true)
-    @Mapping(target = "role", ignore = true)
-    @Mapping(target = "createDate", ignore = true)
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "lastUpdateDate", ignore = true)
-    @Mapping(target = "lastUpdatedBy", ignore = true)
-    @Mapping(target = "lastLoginDate", ignore = true)
-    @Mapping(target = "loginFailCount", ignore = true)
-    @Mapping(target = "locked", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
-    UserRo mapCreated(User user);
-
     @Mapping(target = "guid", ignore = true)
     @Mapping(target = "login", ignore = true)
     @Mapping(target = "createDate", ignore = true)
