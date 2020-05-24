@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserRo create(UserRo user) {
         // TODO allow only for admins
-        if(userManager.exists(user.getLogin())) {
+        if(userManager.exists(user.getLogin(), false)) {
             throw new UserManagementException("Such login exists", ErrorCode.BAD_REQUEST);
         }
         if(properties.getRoles().stream().noneMatch(role -> StringUtils.equals(role.getName(), user.getRole()))) {
@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         }
         UserRo createdUser = userRoMapper.mapFull(userManager.create(userRoMapper.mapCreate(user)));
         if(BooleanUtils.isFalse(createdUser.getTemporalPassword())) {
-            createdUser.setTemporalPassword(null);
             createdUser.setPassword(null);
         }
         return createdUser;

@@ -91,6 +91,11 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    public boolean exists(String login, boolean deleted) {
+        return userRepository.existsByLoginAndDeleted(login, deleted);
+    }
+
+    @Override
     public boolean exists(UUID guid) {
         return userRepository.existsById(guid);
     }

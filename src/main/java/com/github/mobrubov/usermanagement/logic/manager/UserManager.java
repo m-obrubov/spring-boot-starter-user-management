@@ -13,6 +13,7 @@ public interface UserManager {
     void delete(UUID guid);
 
     boolean exists(String login);
+    boolean exists(String login, boolean deleted);
     boolean exists(UUID guid);
 
     String getCurrentUserName();
