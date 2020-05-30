@@ -19,8 +19,6 @@ import static java.util.Objects.isNull;
  */
 @Component
 public class PasswordUtils {
-    private static final Integer DEFAULT_PASSWORD_LENGTH = 6;
-    private static final PasswordStrength DEFAULT_PASSWORD_STRENGTH = PasswordStrength.DIGITS;
     private static final String[] ALLOWED_CHARACTERS = {
         "abcdefghijklmnopqrstuvwxyz",
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -104,8 +102,8 @@ public class PasswordUtils {
 
     private boolean validateWithPBKDF2WithHmacSHA1(String original, String encoded) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String[] parts = encoded.split(ENCODE_DELIMITER);
-        byte[] salt = fromHex(parts[1]);
-        byte[] hash = fromHex(parts[2]);
+        byte[] salt = fromHex(parts[0]);
+        byte[] hash = fromHex(parts[1]);
 
         PBEKeySpec spec = new PBEKeySpec(original.toCharArray(), salt, ENCODE_ITERATIONS, hash.length * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
