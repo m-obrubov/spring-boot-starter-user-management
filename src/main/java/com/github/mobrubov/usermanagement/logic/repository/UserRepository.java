@@ -1,5 +1,6 @@
 package com.github.mobrubov.usermanagement.logic.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import com.github.mobrubov.usermanagement.logic.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
+    Optional<User> findByLogin(String login);
     boolean existsByLogin(String login);
     boolean existsByLoginAndDeleted(String login, boolean deleted);
 }

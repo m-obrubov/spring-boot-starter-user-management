@@ -9,12 +9,11 @@ public interface UserManager {
     User create(User user);
     List<User> getAll();
     User getOne(UUID guid);
+    User getOneByLogin(String login);
     void update(UUID guid, User user);
     void delete(UUID guid);
 
     boolean exists(String login);
     boolean exists(String login, boolean deleted);
     boolean exists(UUID guid);
-
-    String getCurrentUserName();
 }

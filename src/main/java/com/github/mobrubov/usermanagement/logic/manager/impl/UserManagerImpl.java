@@ -56,6 +56,15 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    public User getOneByLogin(String login) {
+        if(Objects.isNull(login)) {
+            throw new UserManagementException("No such user", ErrorCode.NOT_FOUND);
+        }
+        return userRepository.findByLogin(login)
+            .orElseThrow(() -> new UserManagementException("No such user", ErrorCode.NOT_FOUND));
+    }
+
+    @Override
     public void update(UUID guid, User user) {
         User oldUser = getOne(guid);
 //       TODO check deleted only for plain users
@@ -98,10 +107,5 @@ public class UserManagerImpl implements UserManager {
     @Override
     public boolean exists(UUID guid) {
         return userRepository.existsById(guid);
-    }
-
-    @Override
-    public String getCurrentUserName() {
-        return "unknown";
     }
 }

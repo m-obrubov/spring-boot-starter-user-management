@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.mobrubov.usermanagement.common.exception.UserManagementProperties;
-import com.github.mobrubov.usermanagement.logic.manager.UserManager;
 import com.github.mobrubov.usermanagement.logic.util.PasswordUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,8 +28,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class UserManagementAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public AuditorAware<String> auditorProvider(UserManager userManager) {
-        return () -> Optional.of(userManager.getCurrentUserName());
+    public AuditorAware<String> defaultAuditorProvider() {
+        return () -> Optional.of("unknown");
     }
 
     @Bean

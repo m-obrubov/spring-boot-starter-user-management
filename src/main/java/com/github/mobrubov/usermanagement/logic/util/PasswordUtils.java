@@ -102,7 +102,7 @@ public class PasswordUtils {
         }
     }
 
-    public boolean validateWithPBKDF2WithHmacSHA1(String original, String encoded) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private boolean validateWithPBKDF2WithHmacSHA1(String original, String encoded) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String[] parts = encoded.split(ENCODE_DELIMITER);
         byte[] salt = fromHex(parts[1]);
         byte[] hash = fromHex(parts[2]);
