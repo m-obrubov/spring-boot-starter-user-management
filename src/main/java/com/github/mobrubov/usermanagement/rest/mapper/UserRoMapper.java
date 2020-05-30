@@ -14,6 +14,8 @@ import org.mapstruct.Mapping;
 public interface UserRoMapper {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "nickName", source = "user")
+    @Mapping(target = "createdBy", source = "createdBy.guid")
+    @Mapping(target = "lastUpdatedBy", source = "lastUpdatedBy.guid")
     UserRo mapFull(User user);
 
     default List<UserRo> mapFull(List<User> source) {
@@ -78,6 +80,9 @@ public interface UserRoMapper {
     User mapUpdate(UserRo userRo);
 
     default String uuid(UUID uuid) {
+        if(uuid == null) {
+            return null;
+        }
         return uuid.toString();
     }
 

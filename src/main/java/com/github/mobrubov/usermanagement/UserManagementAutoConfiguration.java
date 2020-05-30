@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.mobrubov.usermanagement.common.exception.UserManagementProperties;
+import com.github.mobrubov.usermanagement.logic.entity.User;
 import com.github.mobrubov.usermanagement.logic.util.PasswordUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,6 +20,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableJpaAuditing
 @Configuration
@@ -28,8 +31,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class UserManagementAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public AuditorAware<String> defaultAuditorProvider() {
-        return () -> Optional.of("unknown");
+    public AuditorAware<User> defaultAuditorProvider() {
+        return Optional::empty;
     }
 
     @Bean
@@ -53,5 +56,11 @@ public class UserManagementAutoConfiguration {
         properties.getPassword().setLength(6);
         properties.getPassword().setStrength(PasswordUtils.PasswordStrength.DIGITS);
         return properties;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
     }
 }

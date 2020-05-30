@@ -32,8 +32,8 @@ public class User {
     private String login;
 
     @NotNull
-    @Length(max = 161)
-    @Column(name = "password", nullable = false, length = 161)
+    @Length(max = 60)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
 
     @Length(max = 256)
@@ -55,18 +55,18 @@ public class User {
     private LocalDateTime createDate;
 
     @CreatedBy
-    @Length(max = 256)
-    @Column(name = "created_by",  nullable = false, updatable = false, length = 256)
-    private String createdBy;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
     @LastModifiedDate
     @Column(name = "last_update_date")
     private LocalDateTime lastUpdateDate;
 
     @LastModifiedBy
-    @Length(max = 256)
-    @Column(name = "last_updated_by",length = 256)
-    private String lastUpdatedBy;
+    @ManyToOne
+    @JoinColumn(name = "last_updated_by")
+    private User lastUpdatedBy;
 
     @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;
